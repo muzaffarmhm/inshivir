@@ -19,12 +19,4 @@ app.listen(3000,()=>{
 app.get('/',(req,res)=>{
     res.render('home')
 })
-app.get('/makecamp',async (req,res)=>{
-    const camp = await new Campground({
-        title: 'check',
-        description: 'cheap',
-        price: '10'
 
-    }).save()
-    res.send('Camp created!!!')
-})
