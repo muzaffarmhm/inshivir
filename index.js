@@ -20,3 +20,19 @@ app.get('/',(req,res)=>{
     res.render('home')
 })
 
+app.get('/new',(req,res)=>{
+    res.render('./campgrounds/new')
+})
+
+
+
+app.get('/camps',async(req,res)=>{
+    const campgrounds = await Campground.find({})
+    res.render('./campgrounds/index', {campgrounds})
+})
+
+app.get('/camps/:id',async(req,res)=>{
+    const {id} = req.params;
+    const campground = await Campground.findById(id)
+    res.render('./campgrounds/show',{campground})
+})
