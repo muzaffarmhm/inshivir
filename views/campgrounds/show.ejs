@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campground Show Page </title>
-</head>
-<body>
+<% layout('/layouts/boilerplate.ejs') %>
+
     <h1><%= campground.title  %> </h1>
     <h2>---- <%= campground.location  %> </h2>
-</body>
-</html>
+    <a href="/camps">Go to other Camps</a>
+    <a href="/camps/edit/<%= campground._id %>">Edit the camp</a>
