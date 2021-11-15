@@ -34,9 +34,12 @@ app.get('/new',(req,res)=>{
 
 app.post('/campgrounds',async(req,res)=>{
     const campground = req.body
-    await Campground.create(campground)
+    const campgrounds = new Campground(campground)
+    await campgrounds.save()
     res.redirect('/camps')
 })
+    
+
 
 app.get('/camps',async(req,res)=>{
     const campgrounds = await Campground.find({})

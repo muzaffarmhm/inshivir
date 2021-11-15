@@ -3,10 +3,15 @@ const Schema = mongoose.Schema
 
 const CampgroundSchema = ({
     title: String,
-    image: String,
-    price: Number, 
-    description: String,
     location: String,
+    price: Number, 
+    image: {
+        type: String,
+        index : {
+            dropDups : true
+            }
+    },
+    description: String,
 });
 
 const Campground = mongoose.model('Campground',CampgroundSchema)
