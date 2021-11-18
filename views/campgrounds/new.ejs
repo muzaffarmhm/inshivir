@@ -1,30 +1,46 @@
 <% layout('/layouts/boilerplate.ejs') %>
 <div class="row">
     <h1 class="text-center">New Campground</h1>
-    <form action="/campgrounds" method="post">
+    
+    <form action="/campgrounds" class="validation" method="post" novalidate >
     <div class="col-6 offset-3">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
+            <input type="text" class="form-control" id="title" name="title" required>
+            <div class="invalid-feedback">
+              Please provide a valid value.
+            </div>
           </div>    
         <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input type="text" class="form-control" id="location" name="location">
+            <input type="text" class="form-control" id="location" name="location" required>
+            <div class="invalid-feedback">
+              Please provide a valid value.
+            </div>
           </div>
           <div class="mb-3">
               <label for="price" class="form-label">Price</label>
             <div class="input-group">
                 <span class="input-group-text" id="price">₹</span>
-                <input type="text" class="form-control" placeholder="0" id="price" aria-label="price" name="price">
+                <input type="text" class="form-control" placeholder="0" id="price" aria-label="price" name="price" required>
+                <div class="invalid-feedback">
+                  Please provide a valid value.
+                </div>
               </div>
           </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image URL</label>
-            <input type="text" class="form-control" id="image" name="image">
+            <input type="text" class="form-control" id="image" name="image" required>
+            <div class="invalid-feedback">
+              Please provide a valid value.
+            </div>
           </div>    
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea type="text" class="form-control" id="description" name="description"></textarea>
+            <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+            <div class="invalid-feedback">
+              Please provide a valid value.
+            </div>
           </div>    
 
         <div class="mb-3">
