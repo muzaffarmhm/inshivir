@@ -3,8 +3,10 @@ const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
 const ejsMate = require('ejs-mate')
-var methodOverride = require('method-override')
+const methodOverride = require('method-override')
 const Campground = require('./models/campground')
+const AsyncErrorHandler = require('./utils/AsyncError')
+const ExpressError = require('./utils/ExpressError')
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -32,44 +34,53 @@ app.get('/new',(req,res)=>{
     res.render('./campgrounds/new')
 })
 
-app.post('/campgrounds',async(req,res)=>{
+app.post('/campgrounds',AsyncErrorHandler (async(req,res)=>{
     const campground = req.body
     const campgrounds = new Campground(campground)
     await campgrounds.save()
     res.redirect('/camps')
-})
+}))
     
 
 
-app.get('/camps',async(req,res)=>{
+app.get('/camps',AsyncErrorHandler( async(req,res)=>{
     const campgrounds = await Campground.find({})
     res.render('./campgrounds/index', {campgrounds})
-})
+}))
 
-app.get('/camps/:id',async(req,res)=>{
+app.get('/camps/:id',AsyncErrorHandler (async(req,res)=>{
     const {id} = req.params;
     const campground = await Campground.findById(id)
     res.render('./campgrounds/show',{campground})
-})
+}))
 
-app.get('/camps/edit/:id',async(req,res)=>{
+app.get('/camps/edit/:id',AsyncErrorHandler( async(req,res)=>{
     const {id} = req.params;
     const campground = await Campground.findById(id)
     res.render('./campgrounds/edit',{campground})
-})
+}))
 
 
-app.put('/camps/update/:id',async(req,res)=>{
+app.put('/camps/update/:id',AsyncErrorHandler(async(req,res)=>{
     const{id} = req.params;
     await Campground.findByIdAndUpdate(id,req.body,{runValidators:true})
     res.redirect(`/camps/${id}`)
-})
+}))
 
-app.delete('/camps/delete/:id',async(req,res)=>{
+app.delete('/camps/delete/:id',AsyncErrorHandler(async(req,res)=>{
     const{id} = req.params
     await Campground.findByIdAndDelete(id)
     res.redirect('/camps')
+}))
+
+app.all('*',(req,res,next)=>{
+    next(new ExpressError('Page Not Found',404))
+    })
+
+app.use((err,req,res,next)=>{
+    const {statusCode = 500, } = err
+    if(!err.message){
+        err.message = 'Something went wrong'
+    }
+    res.status(statusCode).render('error',{err})
 })
-
-
-
