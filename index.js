@@ -6,9 +6,10 @@ const ejsMate = require('ejs-mate')
 const methodOverride = require('method-override')
 const Joi = require('joi')
 const Campground = require('./models/campground')
+const Review = require('./models/review')
 const AsyncErrorHandler = require('./utils/AsyncError')
 const ExpressError = require('./utils/ExpressError')
-const {campgroundSchema} = require('./schemas.js')
+const {campgroundSchema, reviewSchema} = require('./schemas.js')
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -29,6 +30,17 @@ const validateCampground = (req, res, next) => {
         next();
     }
 }
+
+const validateReview = (req, res, next) => {
+    const {error} = reviewSchema.validate(req.body);
+    if(error){
+        const msg = error.details.map(d => d.message).join(', ')
+        throw new ExpressError(msg, 400)
+    }else{
+        next();
+    }
+}
+
 
 mongoose.connect('mongodb://localhost:27017/in-shivir')
 .then(console.log('MongoDB connected succesfully..'))
@@ -67,6 +79,15 @@ app.get('/camps/:id',AsyncErrorHandler (async(req,res)=>{
     res.render('./campgrounds/show',{campground})
 }))
 
+app.post('/camps/:id/review',validateReview, AsyncErrorHandler(async(req,res)=>{
+    const campground = await Campground.findById(req.params.id)
+    const review = new Review(req.body)
+    campground.reviews.push(review)
+    review.save()
+    campground.save()
+    res.redirect(`/camps/${req.params.id}`)
+}))
+
 app.get('/camps/edit/:id',AsyncErrorHandler( async(req,res)=>{
     const {id} = req.params;
     const campground = await Campground.findById(id)
@@ -85,6 +106,7 @@ app.delete('/camps/delete/:id',AsyncErrorHandler(async(req,res)=>{
     await Campground.findByIdAndDelete(id)
     res.redirect('/camps')
 }))
+
 
 app.all('*',(req,res,next)=>{
     next(new ExpressError('Page Not Found',404))
