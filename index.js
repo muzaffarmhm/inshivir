@@ -75,7 +75,7 @@ app.get('/camps',AsyncErrorHandler( async(req,res)=>{
 
 app.get('/camps/:id',AsyncErrorHandler (async(req,res)=>{
     const {id} = req.params;
-    const campground = await Campground.findById(id)
+    const campground = await Campground.findById(id).populate('reviews')
     res.render('./campgrounds/show',{campground})
 }))
 
@@ -86,6 +86,13 @@ app.post('/camps/:id/review',validateReview, AsyncErrorHandler(async(req,res)=>{
     review.save()
     campground.save()
     res.redirect(`/camps/${req.params.id}`)
+}))
+
+app.delete('/camps/:id/review/:review_id',AsyncErrorHandler(async(req,res)=>{
+    const {id, review_id} = req.params;
+    await Campground.findByIdAndUpdate(id,{$pull:{ reviews: review_id}})
+    await Review.findByIdAndDelete(review_id)
+    res.redirect(`/camps/${id}`)
 }))
 
 app.get('/camps/edit/:id',AsyncErrorHandler( async(req,res)=>{
@@ -108,7 +115,7 @@ app.delete('/camps/delete/:id',AsyncErrorHandler(async(req,res)=>{
 }))
 
 
-app.all('*',(req,res,next)=>{
+app.all('*',(req,res,next)=>{ 
     next(new ExpressError('Page Not Found',404))
     })
 
