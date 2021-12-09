@@ -7,8 +7,15 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const methodOverride = require('method-override')
 const ExpressError = require('./utils/ExpressError')
-const campgrounds = require('./routes/campgrounds')
-const reviews = require('./routes/reviews')
+const User = require('./models/user')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+
+const userRoutes = require('./routes/user')
+const campgroundRoutes= require('./routes/campgrounds')
+const reviewRoutes = require('./routes/reviews')
+const user = require('./models/user')
+
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -35,17 +42,24 @@ mongoose.connect('mongodb://localhost:27017/in-shivir')
 app.use(session(sessionConfig))
 app.use(flash())
 
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
     next()
 })
 
-
  //Routers
 
-app.use('/', campgrounds)  //Campgrounds
-app.use('/camps/:id/review', reviews)  //Campgrounds
+app.use('/', userRoutes)  //User Routes
+app.use('/', campgroundRoutes)  //Campgrounds
+app.use('/camps/:id/review', reviewRoutes)  //Reviews
 
 
 app.listen(3000, () => {
