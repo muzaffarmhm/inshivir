@@ -10,6 +10,10 @@ const ReviewSchema = new Schema({
         type: Number,
         required: true,
     },
+    author:{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
     
 })
 
