@@ -9,7 +9,7 @@ router.route('/register')
 
 router.route('/login')
 .get(user.renderLoginPage)
-.post(user.registerUser)
+.post(user.loginUser)
 
 router.get('/logout',user.deleteUser)
 

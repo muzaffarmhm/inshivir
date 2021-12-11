@@ -1,63 +1,77 @@
 <% layout('/layouts/boilerplate.ejs') %>
+<link rel="stylesheet" href="/stylesheets/stars.css">
 
 <div class="row mb-5">
-    <div class="col-6">
-        <div class="card mb-3">
-            <img src="<%= campground.image %>" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title"><%= campground.title %></h5>
-              <p class="card-text"><%= campground.description  %> </p>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-muted"><%= campground.location %></li>
-              <li class="list-group-item text">Submitted by, <%= campground.author.username %></li>
-              <li class="list-group-item">₹<%= campground.price %>/night</li>
-            </ul>
-            <% if(currentUser && campground.author.equals(currentUser._id)){ %> 
-            <div class="card-body">
-                <a class="btn btn-info" href="/camps/edit/<%= campground._id %>">Edit the camp</a>
-                <form class="d-inline" action="/camps/delete/<%= campground._id%>?_method=DELETE" method="post">
-                <button class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-            <% } %> 
-          </div>
-
-
-
-          
+  <div class="col-6">
+    <div class="card mb-3">
+      <img src="<%= campground.image %>" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"><%= campground.title %></h5>
+        <p class="card-text"><%= campground.description  %> </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-muted"><%= campground.location %></li>
+        <li class="list-group-item text">Submitted by, <%= campground.author.username %></li>
+        <li class="list-group-item">₹<%= campground.price %>/night</li>
+      </ul>
+      <% if(currentUser && campground.author.equals(currentUser._id)){ %>
+      <div class="card-body">
+        <a class="btn btn-info" href="/camps/edit/<%= campground._id %>">Edit the camp</a>
+        <form class="d-inline" action="/camps/delete/<%= campground._id%>?_method=DELETE" method="post">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+      <% } %>
     </div>
-    <div class="col-6">
-      <h2 class="mb-3">Leave a Review</h2>
-          <form action="/camps/<%=campground._id %>/review" class="mb-3 validation" method="post" novalidate>
+
+  </div>
+  <div class="col-6">
+    <h2 class="mb-3">Leave a Review</h2>
+    <form action="/camps/<%=campground._id %>/review" class="mb-3 validation" method="post" novalidate>
+      <!-- <div class="mb-3">
+                <label class="form-label" for="rating">Rating</label>
+                <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
+            </div> -->
+            <fieldset class="starability-basic">
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked
+                    aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="rating" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="rating" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="rating" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="rating" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="rating" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
             <div class="mb-3">
-              <label for="rating">Rating</label>
-              <input class="form-range" type="range" min="1" max="5" name="rating" id="rating">
-            </div>
-            <div class="mb-3">
-              <label for="" class="form-label">Review</label>
-              <textarea class="form-control" name="body" id="body" cols="30" rows="3" required></textarea>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
+                <label class="form-label" for="body">Review Text</label>
+                <textarea class="form-control" name="body" id="body" cols="30" rows="3" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
             <button class="btn btn-success">Submit</button>
-          </form>
+    </form>
 
-          
-          <% for(let review of campground.reviews) {%>
-          <div class="card mb-3">
-              <div class="card-body">
-              <h5 class="card-title">Rating: <%= review.rating %></h5>
-              <p class="card-text">Review: <%= review.body  %> </p>
-             <% if(currentUser && review.author.equals(currentUser._id)) {%> 
-              <form action="/camps/<%= campground._id  %>/review/<%= review._id %>?_method=DELETE" method="post">
-                <button class="btn btn-sm btn-danger">Delete</button>
-              </form>
-              <% } %> 
-            </div>
-          </div>
-          <% } %>  
+
+    <% for(let review of campground.reviews) {%>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3><%= review.author.username %></h3>
+        <p class="starability-result" data-rating="<%= review.rating %>">
+          Rated: <%= review.rating %> stars
+        </p>
+        <p class="card-text">Review: <%= review.body  %> </p>
+        <% if(currentUser && review.author.equals(currentUser._id)) {%>
+        <form action="/camps/<%= campground._id  %>/review/<%= review._id %>?_method=DELETE" method="post">
+          <button class="btn btn-sm btn-danger">Delete</button>
+        </form>
+        <% } %>
+      </div>
     </div>
+    <% } %>
+  </div>
 </div>
-
