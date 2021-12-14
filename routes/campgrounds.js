@@ -4,17 +4,14 @@ const AsyncErrorHandler = require('../utils/AsyncError')
 const {isLoggedIn, isAuthor, validateCampground } = require('../middleware')
 const campground = require('../controller/campground');
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const {storage} = require('../cloudinary')
+const upload = multer({ storage })
 
 router.get('/camps', AsyncErrorHandler(campground.index));
 
 router.get('/new', isLoggedIn, campground.renderCampgroundForm);
 
-// router.post('/campgrounds', isLoggedIn, validateCampground, AsyncErrorHandler(campground.createCampground));
-router.post('/campgrounds', upload.single('image'),(req,res)=>{
-    res.send(req.file)
-});
-
+router.post('/campgrounds', isLoggedIn, upload.array('image'),validateCampground, AsyncErrorHandler(campground.createCampground));
 
 router.get('/camps/:id', AsyncErrorHandler(campground.show));
 

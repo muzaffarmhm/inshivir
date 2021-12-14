@@ -28,14 +28,14 @@ module.exports.renderLoginPage = (req,res)=>{
     res.render('users/login')
 }
 
-module.exports.loginUser = passport.authenticate('local',{failureFlash: true, failureRedirect:'/login'}),(req,res)=>{
+module.exports.loginUser = (req,res)=>{
     req.flash('success','Welcome Back!!')
-    const redirectURL = req.session.redirectURL || '/camps'
-    delete req.session.redirectURL
-    res.redirect(redirectURL)
+    const redirectUrl = req.session.returnTo || '/camps'
+    delete req.session.returnTo
+    res.redirect(redirectUrl)
 }
 
-module.exports.deleteUser = (req,res)=>{
+module.exports.logout = (req,res)=>{
     req.logout()
     req.flash('success', 'You have successfully logged out!')
     res.redirect('/camps')

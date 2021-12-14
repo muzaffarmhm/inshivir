@@ -11,6 +11,7 @@ module.exports.index = (async (req, res) => {
 
 module.exports.createCampground = (async (req, res, next) => {
     const campgrounds = new Campground(req.body)
+    campgrounds.image = req.files.map(f => ({url: f.path, filename: f.filename}))  
     campgrounds.author = req.user._id
     await campgrounds.save()
     req.flash('success', 'Campground created successfully')
