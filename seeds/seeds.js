@@ -157,6 +157,7 @@ const data = [{
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   "price": randomPrice(),
   "author": '61b1c71c96187ce6833b9320',
+  "image": [ { "url" : "https://res.cloudinary.com/djmfik7ni/image/upload/v1639480966/Inshivir/t4uou8t6i2yfr1pfiaax.png", "filename" : "Inshivir/t4uou8t6i2yfr1pfiaax"} ]
 }));
 
 module.exports = data;

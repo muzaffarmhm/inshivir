@@ -17,7 +17,7 @@ router.get('/camps/:id', AsyncErrorHandler(campground.show));
 
 router.get('/camps/edit/:id', isLoggedIn, isAuthor, AsyncErrorHandler(campground.renderEditForm));
 
-router.put('/camps/update/:id', isLoggedIn, isAuthor, validateCampground, AsyncErrorHandler(campground.updateCampground));
+router.put('/camps/update/:id', isLoggedIn, isAuthor,upload.array('image'),  validateCampground, AsyncErrorHandler(campground.updateCampground));
 
 router.delete('/camps/delete/:id', isLoggedIn, isAuthor, AsyncErrorHandler(campground.deleteCampground));
 

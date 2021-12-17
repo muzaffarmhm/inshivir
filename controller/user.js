@@ -40,3 +40,4 @@ module.exports.logout = (req,res)=>{
     req.flash('success', 'You have successfully logged out!')
     res.redirect('/camps')
 }
+
