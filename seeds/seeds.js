@@ -2,162 +2,72 @@ const randomPrice = () => {
   return Math.floor(Math.random() * 500 + 40);
 };
 
+//generate random coordinates within a radius
+const randomCoordinates = (lat, lng, radius) => {
+  const r = radius / 111300; //about 111300 meters in one degree
+  const u = Math.random();
+  const v = Math.random();
+
+  const w = r * Math.sqrt(u);
+  const t = 2 * Math.PI * v;
+  const x = w * Math.cos(t);
+  const y = w * Math.sin(t);
+
+  const newlat = y + lat;
+  const newlon = x + lng;
+
+  return [newlon, newlat];
+};
+
 const data = [{
-  "title": "Street",
-  "location": "Bayaguana"
+  "title": "Sunbrook",
+  "location": "Thawat Buri"
 }, {
-  "title": "Center",
-  "location": "Vitali"
+  "title": "Lerdahl",
+  "location": "Xuetian"
 }, {
-  "title": "Parkway",
-  "location": "Al Bīrah"
+  "title": "Dexter",
+  "location": "Curvelo"
 }, {
-  "title": "Terrace",
-  "location": "Baiyang"
+  "title": "Graceland",
+  "location": "Siquanpu"
 }, {
-  "title": "Lane",
-  "location": "Sixi"
+  "title": "Anhalt",
+  "location": "Hägersten"
 }, {
-  "title": "Trail",
-  "location": "Sabugo"
+  "title": "Carioca",
+  "location": "Dolno Palčište"
 }, {
-  "title": "Alley",
-  "location": "Al Azraq ash Shamālī"
+  "title": "Victoria",
+  "location": "Centralniy"
 }, {
-  "title": "Lane",
-  "location": "Alcanhões"
+  "title": "Hoffman",
+  "location": "Skuratovskiy"
 }, {
-  "title": "Crossing",
-  "location": "Pongol"
+  "title": "Thackeray",
+  "location": "Polonnaruwa"
 }, {
-  "title": "Crossing",
-  "location": "Rääkkylä"
-}, {
-  "title": "Point",
-  "location": "Nyahururu"
-}, {
-  "title": "Plaza",
-  "location": "Stamford"
-}, {
-  "title": "Pass",
-  "location": "Duisburg"
-}, {
-  "title": "Road",
-  "location": "Sydney Mines"
-}, {
-  "title": "Point",
-  "location": "Almaguer North"
-}, {
-  "title": "Avenue",
-  "location": "Newton"
-}, {
-  "title": "Road",
-  "location": "Wonosari"
-}, {
-  "title": "Circle",
-  "location": "Zhifudao"
-}, {
-  "title": "Trail",
-  "location": "Fiditi"
-}, {
-  "title": "Park",
-  "location": "Al Khafsah"
-}, {
-  "title": "Lane",
-  "location": "Kotabaru"
-}, {
-  "title": "Crossing",
-  "location": "Turgenevo"
-}, {
-  "title": "Way",
-  "location": "Linpu"
-}, {
-  "title": "Hill",
-  "location": "Yamaga"
-}, {
-  "title": "Lane",
-  "location": "Lom Kao"
-}, {
-  "title": "Crossing",
-  "location": "Az Zintān"
-}, {
-  "title": "Parkway",
-  "location": "Beirut"
-}, {
-  "title": "Place",
-  "location": "Jicun"
-}, {
-  "title": "Trail",
-  "location": "Karangtanjung"
-}, {
-  "title": "Pass",
-  "location": "Silvares"
-}, {
-  "title": "Point",
-  "location": "Langres"
-}, {
-  "title": "Alley",
-  "location": "Dolna Banjica"
-}, {
-  "title": "Hill",
-  "location": "Bergen"
-}, {
-  "title": "Junction",
-  "location": "Hechun"
-}, {
-  "title": "Avenue",
-  "location": "Huazhai"
-}, {
-  "title": "Crossing",
-  "location": "Baguim do Monte"
-}, {
-  "title": "Drive",
-  "location": "Luocun"
-}, {
-  "title": "Place",
-  "location": "Litein"
-}, {
-  "title": "Plaza",
-  "location": "Jangheung"
-}, {
-  "title": "Point",
-  "location": "Concórdia"
-}, {
-  "title": "Center",
-  "location": "Hefei"
-}, {
-  "title": "Plaza",
-  "location": "Miguel Hidalgo"
-}, {
-  "title": "Junction",
-  "location": "Gurlan"
-}, {
-  "title": "Parkway",
-  "location": "Mekarsari"
-}, {
-  "title": "Avenue",
-  "location": "Beaumont"
-}, {
-  "title": "Way",
-  "location": "Wutan"
-}, {
-  "title": "Road",
-  "location": "Sembungan Kidul"
-}, {
-  "title": "Road",
-  "location": "Lille"
-}, {
-  "title": "Circle",
-  "location": "Austin"
-}, {
-  "title": "Road",
-  "location": "Kuching"
+  "title": "Luster",
+  "location": "Ambian"
 }].map(item => ({
   ...item, "image": "https://source.unsplash.com/800x600/?woods,camps",
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   "price": randomPrice(),
   "author": '61b1c71c96187ce6833b9320',
-  "image": [ { "url" : "https://res.cloudinary.com/djmfik7ni/image/upload/v1639480966/Inshivir/t4uou8t6i2yfr1pfiaax.png", "filename" : "Inshivir/t4uou8t6i2yfr1pfiaax"} ]
+  "image": [ { "url" : "https://res.cloudinary.com/djmfik7ni/image/upload/v1639480966/Inshivir/t4uou8t6i2yfr1pfiaax.png", "filename" : "Inshivir/t4uou8t6i2yfr1pfiaax"} ],
+  "geometry": {
+    "type": "Point",
+    "coordinates": randomCoordinates(22.830982779347984, 78.2360325972813, 1000000)
+  }
+  
 }));
 
 module.exports = data;
+
+// "geometry" : 
+// { 
+//   "type" : "Point", 
+//   "coordinates" : [ 76.69389, 11.40861 ] 
+// }
+
+
