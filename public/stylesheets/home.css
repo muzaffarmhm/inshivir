@@ -1,0 +1,105 @@
+h1{
+    text-align: center;
+}
+
+body {
+    background-color: #f2f2f2;
+    background: url("http://www.officialpsds.com/images/stocks/Dark-night-stock4938.jpg") center center no-repeat;
+    color: #d3d3d3;
+    text-shadow: 2px 2px 12px Black;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+  }
+  .wrapper {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 250px;
+    float: none;
+    width: 80%;
+    /* height: 70vh; */
+  }
+  .element {
+    display: inline;
+    margin-right: 3px;
+  }
+  .typed-cursor {
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+    display: inline;
+  }
+  @-webkit-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-o-keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
