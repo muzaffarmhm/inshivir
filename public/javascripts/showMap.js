@@ -6,6 +6,9 @@ center: campground.geometry.coordinates,
 zoom: 7
 });
 
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+
 new mapboxgl.Marker()
 .setLngLat(campground.geometry.coordinates)
 .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
