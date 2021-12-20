@@ -1,0 +1,66 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<link rel="stylesheet" href="/stylesheets/style.css">
+<!-- <link rel="stylesheet" href="/stylesheets/home.css"> -->
+
+<section class="cover space-md slider" data-arrows="false" data-paging="true" data-autoplay="true" data-timing="6000"
+style="margin-top:auto ;"
+    data-children="1">
+    <ul class="slides flickity-enabled" tabindex="0" style="margin-top: 60px;" >
+
+        <div class="flickity-viewport" style="height: 445px;">
+            <div class="flickity-slider" style="left: 0px; transform: translateX(0%);">
+                <li class="cover switchable slide is-selected" style="position: absolute; left: 0%;  ">
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <div class="col-md-6 col-lg-5">
+                                <img alt="Image" class=" " src="https://i.ibb.co/j6tbnDM/Inshivir-illustration.png">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mt-5">
+                                    <h1>Welcome to Inshivir! <br>
+                                        <span id="typed"></span>               
+                                    
+                                    </h1>
+                                    <p class="lead mt-3">
+                                        Every aspect of your customer experience journey, have a conversation that
+                                        is Informed, Personalized and Engaging.
+                                    </p> <br>
+                                    <div class="modal-instance block">
+                                        <a class="btn col-md-6 btn-primary type-uppercase modal-trigger" href="/camps"
+                                            data-modal-index="0">
+                                            <span class="btn btn-primary">
+                                               Show Camps in India
+                                            </span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </ul>
+</section>
+<div id="typed-strings">
+    <p><strong class="str">Campgrounds</strong> in India!</p>
+    <p>Add <strong class="str">Campgrounds!</strong></p>
+    <p>View <strong class="str">Campgrounds!</strong></p>
+    <p>Rate <strong class="str">Campgrounds!</strong></p>
+  </div>
+  <span id="typed"></span>
+  
+  
+<script>
+    var typed = new Typed('#typed', {
+      stringsElement: '#typed-strings',
+      typeSpeed: 40,
+		startDelay: 1,
+		backSpeed: 40,
+		backDelay: 1000,
+        loop: true,
+        loopCount: Infinity
+    });
+  </script>
