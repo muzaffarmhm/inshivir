@@ -36,17 +36,19 @@ app.use(mongoSanitize(
         replaceWith: '_'
     }
 ))
-const dbURL = 'mongodb://localhost/in-shivir'
-// process.env.DB_URL
-//  || 'mongodb://localhost/in-shivir'
+const dbURL = process.env.DB_URL||'mongodb://localhost/in-shivir'
+
+
 
 mongoose.connect(dbURL)
     .then(console.log('MongoDB connected succesfully..'))
     .catch(err => console.log(err))
+    
+const secret = process.env.SECRET||'this is a secret'
 
 const store = new MongoDBStore({
     mongoUrl: dbURL,
-    secret: 'this is a secret',
+    secret: secret,
     touchAfter: 24 * 3600
 })
 
@@ -54,10 +56,11 @@ store.on('error', function (error) {
     console.log("StoreErr",error)
 })
 
+
 const sessionConfig = {
     store,
     name: 'inshivir',
-    secret: 'this is a secret',
+    secret: secret,
     resave: false,
     saveUninitialized: false,
     cookie: {
