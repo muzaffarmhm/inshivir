@@ -140,9 +140,10 @@ app.use('/', userRoutes)  //User Routes
 app.use('/', campgroundRoutes)  //Campgrounds
 app.use('/camps/:id/review', reviewRoutes)  //Reviews
 
+const port = process.env.PORT || 3000
 
-app.listen(3000, () => {
-    console.log("App Listening at 3000...")
+app.listen(port, () => {
+    console.log("App Listening at 3000...", port)
 })
 
 app.get('/', (req, res) => {
