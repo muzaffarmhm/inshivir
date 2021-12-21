@@ -2,7 +2,7 @@
 
 <div class="alert alert-danger" role="alert">
     <h4 class="alert-heading"><%= err.message %> </h4>
-    <p><%= err  %> </p>
-    <hr>
-    <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    <% if(process.env.NODE_ENV !== "production"){ %> 
+    <p><%= err.stack  %> </p>
+    <% } %> 
   </div>

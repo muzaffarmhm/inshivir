@@ -14,6 +14,7 @@ const ExpressError = require('./utils/ExpressError')
 const User = require('./models/user')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const mongoSanitize = require('express-mongo-sanitize')
 
 const userRoutes = require('./routes/user')
 const campgroundRoutes= require('./routes/campgrounds')
@@ -28,16 +29,23 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(mongoSanitize(
+    {
+        replaceWith: '_'
+    }
+))
 
 mongoose.connect('mongodb://localhost:27017/in-shivir')
     .then(console.log('MongoDB connected succesfully..'))
 
     const sessionConfig = {
+    name: 'inshivir',
     secret: 'this is a secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expire: new Date(Date.now() + 3600000),
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
