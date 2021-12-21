@@ -62,7 +62,7 @@ const sessionConfig = {
     name: 'inshivir',
     secret: secret,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         httpOnly: true,
         // secure: true,
