@@ -21,6 +21,7 @@ const userRoutes = require('./routes/user')
 const campgroundRoutes= require('./routes/campgrounds')
 const reviewRoutes = require('./routes/reviews')
 
+const MongoDBStore = require('connect-mongo');
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -35,11 +36,26 @@ app.use(mongoSanitize(
         replaceWith: '_'
     }
 ))
+const dbURL = 'mongodb://localhost/in-shivir'
+// process.env.DB_URL
+//  || 'mongodb://localhost/in-shivir'
 
-mongoose.connect('mongodb://localhost:27017/in-shivir')
+mongoose.connect(dbURL)
     .then(console.log('MongoDB connected succesfully..'))
+    .catch(err => console.log(err))
 
-    const sessionConfig = {
+const store = new MongoDBStore({
+    mongoUrl: dbURL,
+    secret: 'this is a secret',
+    touchAfter: 24 * 3600
+})
+
+store.on('error', function (error) {
+    console.log("StoreErr",error)
+})
+
+const sessionConfig = {
+    store,
     name: 'inshivir',
     secret: 'this is a secret',
     resave: false,
