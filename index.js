@@ -22,6 +22,7 @@ const campgroundRoutes= require('./routes/campgrounds')
 const reviewRoutes = require('./routes/reviews')
 
 const MongoDBStore = require('connect-mongo');
+const { func } = require('joi');
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -165,3 +166,5 @@ app.use((err, req, res, next) => {
     }
     res.status(statusCode).render('error', { err })
 })
+
+
