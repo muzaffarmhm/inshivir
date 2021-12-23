@@ -53,3 +53,14 @@ line-height: 1.85714286em;
 .str{
     color: #0099ff;
 }
+
+@media (min-width:1025px) {
+    .slides{
+        margin-top: 4rem;
+    }
+     /* big landscape tablets, laptops, and desktops */ 
+    }
+@media (min-width:1281px) { 
+    .slides{
+        margin-top: 4rem;
+    }/* hi-res laptops and desktops */ }
