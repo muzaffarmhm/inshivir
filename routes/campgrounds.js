@@ -11,7 +11,7 @@ router.get('/camps', AsyncErrorHandler(campground.index));
 
 router.get('/new', isLoggedIn, campground.renderCampgroundForm);
 
-router.post('/campgrounds', isLoggedIn, upload.array('image'),validateCampground, AsyncErrorHandler(campground.createCampground));
+router.post('/camps', isLoggedIn, upload.array('image'), AsyncErrorHandler(campground.createCampground));
 
 router.get('/camps/:id', AsyncErrorHandler(campground.show));
 
